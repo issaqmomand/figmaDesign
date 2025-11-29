@@ -14,10 +14,21 @@
 }
 
 body {
-    font-family: 'IM FELL Great Primer SC', serif;
+    font-family: 'Inter', sans-serif;
     background: #fff;
     color: #000;
     min-height: 100vh;
+    line-height: 1.6;
+}
+
+/* Global typography hierarchy */
+h1, h2, h3 {
+    font-family: 'IM FELL Great Primer SC', serif;
+    letter-spacing: 0.02em;
+}
+
+p, li, label, input, select, button {
+    font-family: 'Inter', sans-serif;
 }
 
 img {
