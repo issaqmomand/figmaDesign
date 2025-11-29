@@ -35,6 +35,28 @@ document.addEventListener('DOMContentLoaded', () => {
   let cart = loadCart();
   const SHIPPING_FEE = 4.99;
   const TAX_RATE = 0.18;
+  let fulfillmentMode = 'delivery'; // 'delivery' or 'pickup' (payment page only)
+
+  // Simple page loading bar helpers
+  let loaderEl = null;
+  function ensureLoader() {
+    if (loaderEl) return loaderEl;
+    loaderEl = document.createElement('div');
+    loaderEl.className = 'page-loader';
+    loaderEl.innerHTML = '<div class="page-loader-bar"></div>';
+    document.body.appendChild(loaderEl);
+    return loaderEl;
+  }
+
+  function showPageLoader() {
+    const el = ensureLoader();
+    el.classList.add('show');
+  }
+
+  function hidePageLoader() {
+    if (!loaderEl) return;
+    loaderEl.classList.remove('show');
+  }
 
   function formatPrice(value) {
     return `$${value.toFixed(2)}`;
@@ -43,7 +65,9 @@ document.addEventListener('DOMContentLoaded', () => {
   function updateCartUI() {
     const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
     const subtotal = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
-    const deliveryFee = subtotal > 0 ? SHIPPING_FEE : 0;
+    const isPaymentPage = document.body.classList.contains('payment-body');
+    const isPickupMode = isPaymentPage && !!document.querySelector('.delivery-btn.active[data-option="pickup"]');
+    const deliveryFee = subtotal > 0 && !isPickupMode ? SHIPPING_FEE : 0;
     const tax = subtotal * TAX_RATE;
     const total = subtotal + deliveryFee + tax;
 
@@ -116,6 +140,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const paymentShipping = document.getElementById('paymentShipping');
     const paymentTax = document.getElementById('paymentTax');
     const paymentTotal = document.getElementById('paymentTotal');
+    const paymentShippingLabel = document.getElementById('paymentShippingLabel');
 
     if (paymentCartList && paymentSubtotal && paymentShipping && paymentTax && paymentTotal) {
       if (cart.length === 0) {
@@ -136,6 +161,10 @@ document.addEventListener('DOMContentLoaded', () => {
       paymentShipping.textContent = formatPrice(deliveryFee);
       paymentTax.textContent = formatPrice(tax);
       paymentTotal.textContent = formatPrice(total);
+
+      if (paymentShippingLabel) {
+        paymentShippingLabel.textContent = isPickupMode ? 'Pickup' : 'Estimated Shipping';
+      }
     }
   }
 
@@ -240,18 +269,59 @@ document.addEventListener('DOMContentLoaded', () => {
         alert('Your cart is empty.');
         return;
       }
-      window.location.href = 'payment.html';
+      showPageLoader();
+      setTimeout(() => {
+        window.location.href = 'payment.html';
+      }, 500);
     });
   }
 
   const deliveryToggle = document.getElementById('deliveryToggle');
+
+  function updateFulfillmentUI() {
+    const isPickup = !!document.querySelector('.delivery-btn.active[data-option="pickup"]');
+    fulfillmentMode = isPickup ? 'pickup' : 'delivery';
+
+    const paymentMethodRow = document.getElementById('paymentMethodRow');
+    const nameRow = document.getElementById('nameRow');
+    const contactRow = document.getElementById('contactRow');
+    const addressRows = document.querySelectorAll('.address-fields-row');
+    const completePaymentBtn = document.getElementById('completePayment');
+
+    if (paymentMethodRow) {
+      paymentMethodRow.style.display = '';
+    }
+    if (nameRow) {
+      nameRow.style.display = '';
+    }
+    if (contactRow) {
+      contactRow.style.display = isPickup ? 'none' : '';
+    }
+    addressRows.forEach(row => {
+      row.style.display = isPickup ? 'none' : '';
+    });
+    if (cardFields) {
+      // For both delivery and pickup, follow payment method (card vs others)
+      const isCard = paymentMethodSelect && paymentMethodSelect.value === 'card';
+      cardFields.style.display = isCard ? 'grid' : 'none';
+    }
+    if (completePaymentBtn) {
+      completePaymentBtn.textContent = isPickup ? 'Place Pickup Order' : 'Complete Payment';
+    }
+  }
+
   if (deliveryToggle) {
     deliveryToggle.addEventListener('click', (event) => {
       const btn = event.target.closest('.delivery-btn');
       if (!btn) return;
       deliveryToggle.querySelectorAll('.delivery-btn').forEach(button => button.classList.remove('active'));
       btn.classList.add('active');
+      updateFulfillmentUI();
+      updateCartUI(); // refresh totals/shipping
     });
+
+    // Initialize UI on payment page load
+    updateFulfillmentUI();
   }
 
   const paymentMethodSelect = document.getElementById('paymentMethod');
@@ -285,15 +355,23 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Form validation for payment page
   function validatePaymentForm() {
+    const isPickup = !!document.querySelector('.delivery-btn.active[data-option="pickup"]');
+
     const requiredFields = [
       { selector: 'input[name="firstName"]', name: 'First Name' },
-      { selector: 'input[name="lastName"]', name: 'Last Name' },
-      { selector: 'input[name="email"]', name: 'Email' },
-      { selector: 'input[name="phone"]', name: 'Phone' },
-      { selector: 'input[name="street"]', name: 'Street Address' },
-      { selector: 'input[name="city"]', name: 'City' },
-      { selector: 'input[name="postal"]', name: 'Postal Code' }
+      { selector: 'input[name="lastName"]', name: 'Last Name' }
     ];
+
+    // For delivery orders, require contact + address details
+    if (!isPickup) {
+      requiredFields.push(
+        { selector: 'input[name="email"]', name: 'Email' },
+        { selector: 'input[name="phone"]', name: 'Phone' },
+        { selector: 'input[name="street"]', name: 'Street Address' },
+        { selector: 'input[name="city"]', name: 'City' },
+        { selector: 'input[name="postal"]', name: 'Postal Code' }
+      );
+    }
 
     let isValid = true;
     const errors = [];
@@ -383,12 +461,20 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
       }
 
-      showToast('Payment successful! Your order is on its way.', 'success');
+      const isPickup = !!document.querySelector('.delivery-btn.active[data-option="pickup"]');
+      const successMessage = isPickup
+        ? 'Your pickup order has been placed! We’ll have it ready shortly.'
+        : 'Payment successful! Your order is on its way.';
+
+      showToast(successMessage, 'success');
       cart = [];
       saveCart(cart);
       updateCartUI();
       setTimeout(() => {
-        window.location.href = 'index.html';
+        showPageLoader();
+        setTimeout(() => {
+          window.location.href = 'index.html';
+        }, 400);
       }, 1500);
     });
   }
@@ -412,9 +498,17 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     button.addEventListener('click', () => {
-      window.location.href = 'checkout.html';
+      showPageLoader();
+      setTimeout(() => {
+        window.location.href = 'checkout.html';
+      }, 400);
     });
   });
 
   updateCartUI();
+
+  // Hide loader if user lands on a page directly (e.g., refresh, url nav)
+  window.addEventListener('load', () => {
+    hidePageLoader();
+  });
 });

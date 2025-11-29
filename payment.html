@@ -66,18 +66,8 @@
                     </div>
                 </div>
 
-                <div class="payment-section">
-                    <label class="address-label">Start typing address</label>
-                    <div class="address-search">
-                        <span class="address-icon">🔍</span>
-                        <input type="text" placeholder="Start typing address">
-                        <span class="address-icon">📍</span>
-                    </div>
-                    <button class="manual-address" type="button">Enter address manually</button>
-                </div>
-
                 <form class="payment-form" id="paymentForm">
-                    <div class="form-row">
+                    <div class="form-row" id="paymentMethodRow">
                         <label>
                             Payment Method
                             <select id="paymentMethod" name="paymentMethod">
@@ -87,7 +77,7 @@
                             </select>
                         </label>
                     </div>
-                    <div class="form-row split">
+                    <div class="form-row split" id="nameRow">
                         <label>
                             First Name*
                             <input type="text" name="firstName" required>
@@ -97,7 +87,7 @@
                             <input type="text" name="lastName" required>
                         </label>
                     </div>
-                    <div class="form-row split">
+                    <div class="form-row split" id="contactRow">
                         <label>
                             Email*
                             <input type="email" name="email" required>
@@ -107,13 +97,13 @@
                             <input type="tel" name="phone" required>
                         </label>
                     </div>
-                    <div class="form-row">
+                    <div class="form-row address-fields-row">
                         <label>
                             Street Address
                             <input type="text" name="street">
                         </label>
                     </div>
-                    <div class="form-row split">
+                    <div class="form-row split address-fields-row">
                         <label>
                             City
                             <input type="text" name="city">
@@ -154,7 +144,7 @@
                         <span id="paymentSubtotal">$0.00</span>
                     </div>
                     <div class="summary-row">
-                        <span>Estimated Shipping</span>
+                        <span id="paymentShippingLabel">Estimated Shipping</span>
                         <span id="paymentShipping">$0.00</span>
                     </div>
                     <div class="summary-row">
