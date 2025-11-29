@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paradise Mediterranean Cuisine — Checkout</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IM+FELL+Great+Primer+SC&family=Island+Moments&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="checkout-body">
+    <header class="hero-frame">
+        <nav class="top-bar">
+            <a class="logo-group" href="index.html">
+                <div class="sunrise-icon" aria-hidden="true"></div>
+                <span class="brand-script">Paradise</span>
+            </a>
+            <div class="nav-links">
+                <a href="menu.html">Menu</a>
+                <a href="index.html#about">About</a>
+                <a href="index.html#contact">Contact</a>
+                <button class="cart-button" type="button">
+                    <span class="cart-icon" aria-hidden="true"></span>
+                    <span class="cart-label">Cart</span>
+                    <span class="cart-count" data-cart-count>0</span>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <div class="cart-panel" id="cartPanel">
+        <div class="cart-panel-header">
+            <h3>Your Cart</h3>
+        </div>
+        <ul class="cart-items" id="cartItems"></ul>
+        <div class="cart-panel-footer">
+            <span class="cart-total-label">Total:</span>
+            <span class="cart-total-value" id="cartTotal">$0.00</span>
+        </div>
+    </div>
+
+    <main class="checkout-page">
+        <section class="checkout-header">
+            <div class="checkout-header-top">
+                <a href="menu.html" class="checkout-back">Continue Shopping</a>
+                <div class="checkout-title-block">
+                    <h1>Cart Checkout</h1>
+                    <p>Review your order and complete your purchase,</p>
+                </div>
+            </div>
+            <div class="checkout-progress">
+                <div class="progress-track">
+                    <div class="progress-bar"></div>
+                </div>
+            </div>
+        </section>
+
+        <section class="checkout-main">
+            <section class="checkout-cart">
+                <h2 class="checkout-cart-title">
+                    Your Cart (<span id="checkoutItemCount">0</span> Items)
+                </h2>
+                <div class="checkout-items" id="checkoutItems"></div>
+            </section>
+
+            <aside class="checkout-summary">
+                <h3>Order Summary</h3>
+                <div class="summary-row">
+                    <span>Subtotal:</span>
+                    <span id="checkoutSubtotal">$0.00</span>
+                </div>
+                <div class="summary-row">
+                    <span>Delivery Fee</span>
+                    <span id="checkoutDelivery">$0.00</span>
+                </div>
+                <div class="summary-row">
+                    <span>Tax</span>
+                    <span id="checkoutTax">$0.00</span>
+                </div>
+                <div class="summary-row summary-total">
+                    <span>Total</span>
+                    <span id="checkoutTotal">$0.00</span>
+                </div>
+
+                <div class="checkout-promo">
+                    <label for="promoCode">Promo Code</label>
+                    <div class="promo-input-row">
+                        <input type="text" id="promoCode" placeholder="Enter Code">
+                        <button type="button" id="applyPromo">Apply</button>
+                    </div>
+                    <p class="promo-message" id="promoMessage"></p>
+                </div>
+
+                <button class="place-order-btn" type="button" id="placeOrder">
+                    Continue to Payment
+                </button>
+            </aside>
+        </section>
+    </main>
+
+    <div class="toast-container" id="toastContainer"></div>
+    <script src="script.js"></script>
+</body>
+</html>
+
+

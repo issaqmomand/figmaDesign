@@ -1,0 +1,21 @@
+{
+  "name": "paradise-cuisine",
+  "version": "1.0.0",
+  "description": "Paradise Cuisine - Exquisite Dining Experience Website",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx serve .",
+    "dev": "npx live-server --port=3000"
+  },
+  "keywords": [
+    "restaurant",
+    "cuisine",
+    "dining",
+    "mediterranean"
+  ],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {},
+  "dependencies": {}
+}
+

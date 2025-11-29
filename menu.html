@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paradise Mediterranean Cuisine — Menu</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IM+FELL+Great+Primer+SC&family=Island+Moments&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="menu-body">
+    <header class="hero-frame">
+        <nav class="top-bar">
+            <a class="logo-group" href="index.html">
+                <div class="sunrise-icon" aria-hidden="true"></div>
+                <span class="brand-script">Paradise</span>
+            </a>
+            <div class="nav-links">
+                <a href="menu.html">Menu</a>
+                <a href="index.html#about">About</a>
+                <a href="index.html#contact">Contact</a>
+                <button class="cart-button" type="button">
+                    <span class="cart-icon" aria-hidden="true"></span>
+                    <span class="cart-label">Cart</span>
+                    <span class="cart-count" data-cart-count>0</span>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <div class="cart-panel" id="cartPanel">
+        <div class="cart-panel-header">
+            <h3>Your Cart</h3>
+        </div>
+        <ul class="cart-items" id="cartItems"></ul>
+        <div class="cart-panel-footer">
+            <span class="cart-total-label">Total:</span>
+            <span class="cart-total-value" id="cartTotal">$0.00</span>
+        </div>
+    </div>
+
+    <main class="menu-page">
+        <section class="deals-banner">
+            <h3>DEALS of the DAY:</h3>
+            <p>
+                Tortilla Espanola: $12.99<br>
+                Tabouli: $11.99
+            </p>
+        </section>
+
+        <section class="menu-heading">
+            <p class="eyebrow">Mediterranean Cuisine</p>
+            <h1>Our Menu</h1>
+        </section>
+
+        <section class="menu-content">
+            <div class="menu-columns menu-columns--two">
+                <div class="menu-column">
+                    <article class="menu-item">
+                        <img class="menu-thumb" src="assets/images/menu-image-1.png" alt="Egyptian Lentils with Rice and Pasta">
+                        <div class="menu-text">
+                            <h3>Egyptian Lentils with Rice and Pasta</h3>
+                            <div class="menu-purchase">
+                                <span class="menu-price">$16.99</span>
+                                <button class="add-cart" type="button" data-name="Egyptian Lentils with Rice and Pasta" data-price="16.99">Add to Cart</button>
+                            </div>
+                        </div>
+                    </article>
+                    <article class="menu-item">
+                        <img class="menu-thumb" src="assets/images/menu-image-2.png" alt="Eggplant, Lentils, and Peppers cooked in Olive Oil">
+                        <div class="menu-text">
+                            <h3>Eggplant, Lentils, and Peppers cooked in Olive Oil</h3>
+                            <div class="menu-purchase">
+                                <span class="menu-price">$14.50</span>
+                                <button class="add-cart" type="button" data-name="Eggplant, Lentils, and Peppers cooked in Olive Oil" data-price="14.5">Add to Cart</button>
+                            </div>
+                        </div>
+                    </article>
+                    <article class="menu-item">
+                        <img class="menu-thumb" src="assets/images/menu-image-3.png" alt="Tortilla Espanola">
+                        <div class="menu-text">
+                            <h3>Tortilla Espanola</h3>
+                            <div class="menu-purchase">
+                                <span class="menu-price">
+                                    <span class="price-original">$13.99</span>
+                                    <span class="price-deal">$12.99</span>
+                                </span>
+                                <button class="add-cart" type="button" data-name="Tortilla Espanola" data-price="12.99">Add to Cart</button>
+                            </div>
+                        </div>
+                    </article>
+                    <article class="menu-item">
+                        <img class="menu-thumb" src="assets/images/menu-image-4.png" alt="Shakshuka">
+                        <div class="menu-text">
+                            <h3>Shakshuka</h3>
+                            <div class="menu-purchase">
+                                <span class="menu-price">$17.25</span>
+                                <button class="add-cart" type="button" data-name="Shakshuka" data-price="17.25">Add to Cart</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <div class="menu-column">
+                    <article class="menu-item">
+                        <img class="menu-thumb" src="assets/images/menu-image-5.png" alt="Briam">
+                        <div class="menu-text">
+                            <h3>Briam</h3>
+                            <div class="menu-purchase">
+                                <span class="menu-price">$18.75</span>
+                                <button class="add-cart" type="button" data-name="Briam" data-price="18.75">Add to Cart</button>
+                            </div>
+                        </div>
+                    </article>
+                    <article class="menu-item">
+                        <img class="menu-thumb" src="assets/images/menu-image-1.png" alt="Eggplant Parmesan with Prosciutto">
+                        <div class="menu-text">
+                            <h3>Eggplant Parmesan with Prosciutto</h3>
+                            <div class="menu-purchase">
+                                <span class="menu-price">$19.50</span>
+                                <button class="add-cart" type="button" data-name="Eggplant Parmesan with Prosciutto" data-price="19.5">Add to Cart</button>
+                            </div>
+                        </div>
+                    </article>
+                    <article class="menu-item">
+                        <img class="menu-thumb" src="assets/images/menu-image-2.png" alt="Tabouli">
+                        <div class="menu-text">
+                            <h3>Tabouli</h3>
+                            <div class="menu-purchase">
+                                <span class="menu-price">
+                                    <span class="price-original">$13.50</span>
+                                    <span class="price-deal">$11.99</span>
+                                </span>
+                                <button class="add-cart" type="button" data-name="Tabouli" data-price="11.99">Add to Cart</button>
+                            </div>
+                        </div>
+                    </article>
+                    <article class="menu-item">
+                        <img class="menu-thumb" src="assets/images/menu-image-3.png" alt="Grilled Swordfish w/ Lemon Parsley">
+                        <div class="menu-text">
+                            <h3>Grilled Swordfish w/ Lemon Parsley</h3>
+                            <div class="menu-purchase">
+                                <span class="menu-price">$24.00</span>
+                                <button class="add-cart" type="button" data-name="Grilled Swordfish w/ Lemon Parsley" data-price="24">Add to Cart</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <div class="menu-footer"></div>
+    </main>
+
+    <div class="toast-container" id="toastContainer"></div>
+    <script src="script.js"></script>
+</body>
+</html>
+

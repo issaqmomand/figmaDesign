@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paradise Mediterranean Cuisine</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IM+FELL+Great+Primer+SC&family=Island+Moments&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header class="hero-frame">
+        <nav class="top-bar">
+            <a class="logo-group" href="index.html">
+                <div class="sunrise-icon" aria-hidden="true"></div>
+                <span class="brand-script">Paradise</span>
+            </a>
+            <div class="nav-links">
+                <a href="menu.html">Menu</a>
+                <a href="#about">About</a>
+                <a href="#contact">Contact</a>
+                <button class="cart-button" type="button">
+                    <span class="cart-icon" aria-hidden="true"></span>
+                    <span class="cart-label">Cart</span>
+                    <span class="cart-count" data-cart-count>0</span>
+                </button>
+            </div>
+        </nav>
+
+        <div class="hero-grid">
+            <div class="hero-copy">
+                <p class="eyebrow">Mediterranean Cuisine</p>
+                <h1>Where the smell is true to its taste</h1>
+                <p class="description">
+                    Welcome to Paradise Mediterranean Cuisine, where every dish tells a story and “where the smell is true to its taste.”
+                    We created our restaurant with one goal: to bring the bold, refreshing, and unforgettable flavors of the Mediterranean to everyone who walks through our doors.
+                </p>
+                <div class="cta-stack">
+                    <a class="menu-cta" href="menu.html">
+                        <span>MENU</span>
+                    </a>
+                    <a class="location-cta" href="#contact">
+                        <span>Our Location</span>
+                    </a>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="image-mask">
+                    <img src="assets/images/hero-image.png" alt="Mediterranean cuisine plated dish">
+                </div>
+                <div class="cream-block"></div>
+            </div>
+        </div>
+    </header>
+
+    <div class="cart-panel" id="cartPanel">
+        <div class="cart-panel-header">
+            <h3>Your Cart</h3>
+        </div>
+        <ul class="cart-items" id="cartItems"></ul>
+        <div class="cart-panel-footer">
+            <span class="cart-total-label">Total:</span>
+            <span class="cart-total-value" id="cartTotal">$0.00</span>
+        </div>
+    </div>
+
+    <main>
+        <section class="who-we-are" id="about">
+            <h2>Who We Are</h2>
+            <p>
+                Welcome to Paradise Mediterranean Cuisine, where every dish tells a story and “where the smell is true to its taste.”
+                We created our restaurant with one goal: to bring the bold, refreshing, and unforgettable flavors of the Mediterranean to everyone who walks through our doors.
+                Our chefs craft each plate using fresh herbs, premium ingredients, and authentic recipes passed down through generations.
+                From sizzling grills to vibrant mezze, every aroma in our kitchen is a promise of the flavor waiting on your plate.
+                At Paradise, we believe food should be an experience: warm, welcoming, and full of life.
+                Whether you’re stopping by for a quick bite, celebrating with loved ones, or exploring Mediterranean cuisine for the first time,
+                we’re here to make every visit feel like a moment in paradise.
+            </p>
+        </section>
+
+        <section class="contact-band" id="contact">
+            <h3>Contact Us</h3>
+            <div class="contact-copy">
+                <p>
+                    Location: 3432 Sunset Boulevard, Toronto, ON M1A 2B3<br>
+                    Phone: (416) 674-9876<br>
+                    Email: contact@paradisemediterranean.com<br>
+                    Hours: Monday – Sunday: 11:00 AM – 10:00 PM
+                </p>
+                <p>
+                    Questions, Catering, or Reservations?<br>
+                    Reach out anytime — we’d love to make your experience memorable.
+                </p>
+            </div>
+        </section>
+    </main>
+    <div class="toast-container" id="toastContainer"></div>
+    <script src="script.js"></script>
+</body>
+</html>
+

@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paradise Mediterranean Cuisine — Payment</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IM+FELL+Great+Primer+SC&family=Island+Moments&family=Inter:wght@400;500&family=Aref+Ruqaa+Ink:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="payment-body">
+    <header class="hero-frame">
+        <nav class="top-bar">
+            <a class="logo-group" href="index.html">
+                <div class="sunrise-icon" aria-hidden="true"></div>
+                <span class="brand-script">Paradise</span>
+            </a>
+            <div class="nav-links">
+                <a href="menu.html">Menu</a>
+                <a href="index.html#about">About</a>
+                <a href="index.html#contact">Contact</a>
+                <button class="cart-button" type="button">
+                    <span class="cart-icon" aria-hidden="true"></span>
+                    <span class="cart-label">Cart</span>
+                    <span class="cart-count" data-cart-count>0</span>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <div class="cart-panel" id="cartPanel">
+        <div class="cart-panel-header">
+            <h3>Your Cart</h3>
+        </div>
+        <ul class="cart-items" id="cartItems"></ul>
+        <div class="cart-panel-footer">
+            <span class="cart-total-label">Total:</span>
+            <span class="cart-total-value" id="cartTotal">$0.00</span>
+        </div>
+    </div>
+
+    <main class="payment-page">
+        <header class="payment-hero">
+            <h1>Payment</h1>
+            <div class="payment-steps">
+                <div class="step active">Cart Checkout</div>
+                <span class="step-divider"></span>
+                <div class="step active">Payment</div>
+                <span class="step-divider"></span>
+                <div class="step">Order Review</div>
+            </div>
+        </header>
+
+        <div class="payment-layout">
+            <section class="payment-details">
+                <div class="payment-section">
+                    <h2>Delivery Options</h2>
+                    <div class="delivery-toggle" id="deliveryToggle">
+                        <button class="delivery-btn active" data-option="delivery">
+                            <span class="delivery-icon">🚚</span> Delivery
+                        </button>
+                        <button class="delivery-btn" data-option="pickup">
+                            <span class="delivery-icon">📦</span> Pick Up
+                        </button>
+                    </div>
+                </div>
+
+                <div class="payment-section">
+                    <label class="address-label">Start typing address</label>
+                    <div class="address-search">
+                        <span class="address-icon">🔍</span>
+                        <input type="text" placeholder="Start typing address">
+                        <span class="address-icon">📍</span>
+                    </div>
+                    <button class="manual-address" type="button">Enter address manually</button>
+                </div>
+
+                <form class="payment-form" id="paymentForm">
+                    <div class="form-row">
+                        <label>
+                            Payment Method
+                            <select id="paymentMethod" name="paymentMethod">
+                                <option value="card" selected>Credit / Debit Card</option>
+                                <option value="paypal">PayPal</option>
+                                <option value="cash">Cash on Delivery</option>
+                            </select>
+                        </label>
+                    </div>
+                    <div class="form-row split">
+                        <label>
+                            First Name*
+                            <input type="text" name="firstName" required>
+                        </label>
+                        <label>
+                            Last Name*
+                            <input type="text" name="lastName" required>
+                        </label>
+                    </div>
+                    <div class="form-row split">
+                        <label>
+                            Email*
+                            <input type="email" name="email" required>
+                        </label>
+                        <label>
+                            Phone number*
+                            <input type="tel" name="phone" required>
+                        </label>
+                    </div>
+                    <div class="form-row">
+                        <label>
+                            Street Address
+                            <input type="text" name="street">
+                        </label>
+                    </div>
+                    <div class="form-row split">
+                        <label>
+                            City
+                            <input type="text" name="city">
+                        </label>
+                        <label>
+                            Postal Code
+                            <input type="text" name="postal">
+                        </label>
+                    </div>
+                    <div class="form-row split card-row" id="cardFields">
+                        <label>
+                            Card Number
+                            <input type="password" name="cardNumber" placeholder="1234 5678 9012 3456" autocomplete="cc-number">
+                        </label>
+                        <label>
+                            Expiration
+                            <input type="text" name="expiry" placeholder="MM/YY">
+                        </label>
+                        <label>
+                            CVV
+                            <input type="password" name="cvv" placeholder="123" autocomplete="cc-csc">
+                        </label>
+                    </div>
+                </form>
+
+                <button class="save-continue-btn" type="button" id="savePaymentDetails">
+                    Save and continue
+                </button>
+            </section>
+
+            <aside class="payment-summary">
+                <h3>In your cart</h3>
+                <div class="payment-cart-list" id="paymentCartList"></div>
+
+                <div class="payment-totals">
+                    <div class="summary-row">
+                        <span>Subtotal</span>
+                        <span id="paymentSubtotal">$0.00</span>
+                    </div>
+                    <div class="summary-row">
+                        <span>Estimated Shipping</span>
+                        <span id="paymentShipping">$0.00</span>
+                    </div>
+                    <div class="summary-row">
+                        <span>Taxes and other fees</span>
+                        <span id="paymentTax">$0.00</span>
+                    </div>
+                    <div class="summary-row summary-total">
+                        <span>Total</span>
+                        <span id="paymentTotal">$0.00</span>
+                    </div>
+                </div>
+
+                <button class="complete-payment-btn" type="button" id="completePayment">
+                    Complete Payment
+                </button>
+            </aside>
+        </div>
+    </main>
+
+    <div class="toast-container" id="toastContainer"></div>
+    <script src="script.js"></script>
+</body>
+</html>
+
+
