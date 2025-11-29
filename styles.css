@@ -352,7 +352,7 @@ button {
 }
 
 .menu-body {
-    background: #fff;
+    background: var(--cream);
 }
 
 .menu-page {
@@ -495,7 +495,7 @@ button {
 }
 
 .checkout-body {
-    background: #fff;
+    background: var(--cream);
 }
 
 .checkout-page {
@@ -732,7 +732,7 @@ button {
 }
 
 .payment-body {
-    background: #fff;
+    background: var(--cream);
 }
 
 .payment-page {
@@ -760,7 +760,7 @@ button {
     display: flex;
     align-items: center;
     gap: 0.5rem;
-    font-family: 'Anaheim', sans-serif;
+    font-family: 'Inter', sans-serif;
 }
 
 .payment-steps .step {
@@ -994,7 +994,7 @@ button {
     padding: 1rem 1.2rem;
     border-radius: 30px;
     border: none;
-    background: #000;
+    background: var(--brown);
     color: #fff;
     font-family: 'Aref Ruqaa Ink', serif;
     font-size: 1.1rem;
