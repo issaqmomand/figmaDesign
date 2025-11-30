@@ -288,20 +288,24 @@ document.addEventListener('DOMContentLoaded', () => {
     const addressRows = document.querySelectorAll('.address-fields-row');
     const completePaymentBtn = document.getElementById('completePayment');
 
+    // Always show payment method row (for both pickup and delivery)
     if (paymentMethodRow) {
       paymentMethodRow.style.display = '';
     }
+    // Always show name row
     if (nameRow) {
       nameRow.style.display = '';
     }
+    // Always show contact row (needed for order confirmation for both pickup and delivery)
     if (contactRow) {
-      contactRow.style.display = isPickup ? 'none' : '';
+      contactRow.style.display = '';
     }
+    // Hide address rows only for pickup
     addressRows.forEach(row => {
       row.style.display = isPickup ? 'none' : '';
     });
+    // Show card fields based on payment method for both pickup and delivery
     if (cardFields) {
-      // For both delivery and pickup, follow payment method (card vs others)
       const isCard = paymentMethodSelect && paymentMethodSelect.value === 'card';
       cardFields.style.display = isCard ? 'grid' : 'none';
     }
@@ -331,6 +335,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function syncCardFields() {
     if (!paymentMethodSelect || !cardFields) return;
+    // Show card fields for both pickup and delivery when card payment is selected
     const isCard = paymentMethodSelect.value === 'card';
     cardFields.style.display = isCard ? 'grid' : 'none';
     if (cardNumberInput) {
@@ -342,7 +347,13 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   if (paymentMethodSelect) {
-    paymentMethodSelect.addEventListener('change', syncCardFields);
+    paymentMethodSelect.addEventListener('change', () => {
+      syncCardFields();
+      // Also update fulfillment UI to ensure everything is in sync
+      if (deliveryToggle) {
+        updateFulfillmentUI();
+      }
+    });
     syncCardFields();
   }
 
@@ -357,16 +368,17 @@ document.addEventListener('DOMContentLoaded', () => {
   function validatePaymentForm() {
     const isPickup = !!document.querySelector('.delivery-btn.active[data-option="pickup"]');
 
+    // Required fields for both pickup and delivery
     const requiredFields = [
       { selector: 'input[name="firstName"]', name: 'First Name' },
-      { selector: 'input[name="lastName"]', name: 'Last Name' }
+      { selector: 'input[name="lastName"]', name: 'Last Name' },
+      { selector: 'input[name="email"]', name: 'Email' },
+      { selector: 'input[name="phone"]', name: 'Phone' }
     ];
 
-    // For delivery orders, require contact + address details
+    // For delivery orders, also require address details
     if (!isPickup) {
       requiredFields.push(
-        { selector: 'input[name="email"]', name: 'Email' },
-        { selector: 'input[name="phone"]', name: 'Phone' },
         { selector: 'input[name="street"]', name: 'Street Address' },
         { selector: 'input[name="city"]', name: 'City' },
         { selector: 'input[name="postal"]', name: 'Postal Code' }
@@ -404,7 +416,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
 
-    // Validate card fields if card payment is selected
+    // Validate card fields for both pickup and delivery when card payment is selected
     const paymentMethod = document.getElementById('paymentMethod');
     if (paymentMethod && paymentMethod.value === 'card') {
       const cardNumber = document.querySelector('input[name="cardNumber"]');
@@ -507,8 +519,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
   updateCartUI();
 
+  // Final initialization: ensure payment page UI is properly set up
+  if (deliveryToggle && paymentMethodSelect) {
+    // Make sure everything is synced on page load
+    updateFulfillmentUI();
+    syncCardFields();
+  }
+
   // Hide loader if user lands on a page directly (e.g., refresh, url nav)
   window.addEventListener('load', () => {
     hidePageLoader();
+    // Re-initialize payment UI after page fully loads
+    if (deliveryToggle && paymentMethodSelect) {
+      updateFulfillmentUI();
+      syncCardFields();
+    }
   });
 });
