@@ -277,6 +277,12 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   const deliveryToggle = document.getElementById('deliveryToggle');
+  const paymentMethodSelect = document.getElementById('paymentMethod');
+  const cardFields = document.getElementById('cardFields');
+  const cardNumberInput = document.querySelector('input[name="cardNumber"]');
+  const cvvInput = document.querySelector('input[name="cvv"]');
+  const completePaymentBtn = document.getElementById('completePayment');
+  const savePaymentBtn = document.getElementById('savePaymentDetails');
 
   function updateFulfillmentUI() {
     const isPickup = !!document.querySelector('.delivery-btn.active[data-option="pickup"]');
@@ -286,7 +292,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const nameRow = document.getElementById('nameRow');
     const contactRow = document.getElementById('contactRow');
     const addressRows = document.querySelectorAll('.address-fields-row');
-    const completePaymentBtn = document.getElementById('completePayment');
 
     // Always show payment method row (for both pickup and delivery)
     if (paymentMethodRow) {
@@ -328,11 +333,6 @@ document.addEventListener('DOMContentLoaded', () => {
     updateFulfillmentUI();
   }
 
-  const paymentMethodSelect = document.getElementById('paymentMethod');
-  const cardFields = document.getElementById('cardFields');
-  const cardNumberInput = document.querySelector('input[name="cardNumber"]');
-  const cvvInput = document.querySelector('input[name="cvv"]');
-
   function syncCardFields() {
     if (!paymentMethodSelect || !cardFields) return;
     // Show card fields for both pickup and delivery when card payment is selected
@@ -357,10 +357,22 @@ document.addEventListener('DOMContentLoaded', () => {
     syncCardFields();
   }
 
-  const savePaymentBtn = document.getElementById('savePaymentDetails');
   if (savePaymentBtn) {
     savePaymentBtn.addEventListener('click', () => {
-      alert('Your delivery and payment preferences have been saved.');
+      // Validate form before saving
+      const validation = validatePaymentForm();
+      if (!validation.isValid) {
+        showToast(validation.errors[0] || 'Please fill in all required fields.', 'error');
+        // Scroll to first error
+        const firstError = document.querySelector('.payment-form input.error, .payment-form select.error');
+        if (firstError) {
+          firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          firstError.focus();
+        }
+        return;
+      }
+      
+      showToast('Your delivery and payment preferences have been saved.', 'success');
     });
   }
 
@@ -453,7 +465,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  const completePaymentBtn = document.getElementById('completePayment');
   if (completePaymentBtn) {
     completePaymentBtn.addEventListener('click', () => {
       if (!cart.length) {
